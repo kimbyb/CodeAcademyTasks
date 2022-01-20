@@ -27,28 +27,36 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 const validateCred = arr => {
     let newArr = [];
-    for (let i = 0; i < arr.length - 1; i++) {
-        if (i % 2 === 0) {
-            newArr.push(arr[i] )
-        } else {
-            newArr.push(arr[i] * 2)
+    //checking if the length is equal to avoid the duplication of the first digit 
+    if(arr.length % 2 === 0) {
+        for (let i = arr.length -1 ; i >= 0; i--) {
+            if (i % 2 === 0) {
+                newArr.push(arr[i] * 2)
+            } else {
+                newArr.push(arr[i] )
+            }
+        }
+    } else {
+        for (let i = arr.length -1 ; i >= 0; i--) {
+            if (i % 2 != 0) {
+                newArr.push(arr[i] * 2)
+            } else {
+                newArr.push(arr[i] )
+            }
         }
     }
-  console.log(newArr);
-    for(let i = 0; i < newArr.length; i++) {
-        //sum two digit of a number 
+
+     //sum two digit of a number
+    for(let i = 0; i < newArr.length; i++) { 
         newArr[i] = (newArr[i] % 10 + Math.floor(newArr[i] / 10));
     } 
-    const sum = newArr.reduce((partial_sum, a) => partial_sum + a, 0);
-    console.log(newArr)
-    console.log(sum)
-    console.log(arr[arr.length - 1])
-    console.log((10 - sum % 10))
-    console.log (arr[arr.length - 1] === ((sum%10)%10))
+    const sum = newArr.reduce((partial_sum, a) => partial_sum + a, 0) ;
+    return (sum % 10 === 0)
 }
 
-
-validateCred(valid1);
+batch.forEach(element => {
+    console.log(validateCred(element))
+});
 
 
 
